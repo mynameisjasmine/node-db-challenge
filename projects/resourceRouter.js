@@ -33,12 +33,12 @@ router.post('/', (req, res) => {
     if (!name) {
     res.status(400).json({error: "You must provide a name for this resource"})
     } else {
-  Resources.add(req.body)
-  .then(project => {
-  res.status(201).json(project)
+  Resources.addResource(req.body)
+  .then(resource => {
+  res.status(201).json(resource)
     })
     .catch(err => {
-    res.status(404).json({error: "Unable to post project"})
+    res.status(404).json({error: "Unable to post resource"})
     });
     }
   })

@@ -27,16 +27,19 @@ res.status(500).json({error: "Failed to retrieve project with given id"})
 
 //POST projects
 router.post('/', (req, res) => {
-const newProject = req.body
-
-Projects.add(newProject)
-.then(project => {
-res.status(201).json(project)
-})
-.catch(err => {
-res.status(500).json({error: "Failed to post project"})
- });
-})
+    const { name } = req.body
+    if (!name) {
+    res.status(400).json({error: "You must provide a name for this project"})
+    } else {
+  Projects.add(req.body)
+  .then(project => {
+  res.status(201).json(project)
+    })
+    .catch(err => {
+    res.status(404).json({error: "Unable to post project"})
+    });
+    }
+  })
 
 //POST tasks
 router.post('/:id/tasks', (req, res) => {
