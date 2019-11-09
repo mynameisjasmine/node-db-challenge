@@ -7,7 +7,9 @@ server.use(helmet())
 server.use(express.json())
 
 const projectRouter = require('./projects/projectRouter.js')
+const resourceRouter = require('./projects/resourceRouter.js')
 server.use('/api/projects', projectRouter)
+server.use('/api/resources', resourceRouter)
 server.use(morgan('dev'));
 
 

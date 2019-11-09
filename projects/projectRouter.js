@@ -38,6 +38,31 @@ res.status(500).json({error: "Failed to post project"})
  });
 })
 
+//POST tasks
+router.post('/:id/tasks', (req, res) => {
+const { description } = req.body
+if(!description) {
+res.status(400).json({error: "You must add a description to post this task"})
+}
+const taskData = req.body;
+const id = req.params.id;
+
+Projects.findById(id)
+.then(task => {
+ if(task) {
+ Projects.addTask(taskData, id)
+ .then(newTask => {
+ res.status(201).json(newTask)
+ })
+ } else {
+ res.status(404).json({error: "Unable to find task with given id"})
+ }
+})
+.catch(err => {
+res.status(500).json({error: "Failed to create new task"})
+ })
+})
+
 //PUT projects
 router.put('/:id', (req, res) => {
 const id = req.params.id
@@ -46,7 +71,7 @@ const changes = req.body
 Projects.findById(id)
 .then(project => {
 if (project) {
-Projects.update(chenges, id)
+Projects.update(changes, id)
 .then(updateProject => {
 res.json(updateProject)
 });
