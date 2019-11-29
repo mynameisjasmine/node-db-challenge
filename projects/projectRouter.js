@@ -16,7 +16,8 @@ res.status(500).json({error: "Failed to retrieve projects"})
 
 //GET projects by ID
 router.get('/:id', (req, res) => {
-Projects.findById()
+const id = req.params.id
+Projects.findById(id)
 .then(project => {
 res.status(200).json(project)   
 })

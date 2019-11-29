@@ -5,7 +5,8 @@ exports.up = function(knex) {
     tbl.increments();
     
     tbl.text('name', 255)
-   .notNullable();
+   .notNullable()
+   .unique()
    tbl.text('description', 255)
   })
 };
